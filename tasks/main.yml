@@ -1,4 +1,23 @@
-# todo: brew install cmake
+- name: Create user for beacon node builds
+  user:
+    name: '{{ beacon_node_user }}'
+    group: '{{ beacon_node_group }}'
+    shell: '/bin/zsh'
+    uid: 8000
+
+- name: Copy .zshrc file for beacon node user
+  copy:
+    src: 'zshrc'
+    dest: '/Users/{{ beacon_node_user }}/.zshrc'
+    owner: '{{ beacon_node_user }}'
+    group: '{{ beacon_node_group }}'
+    mode: 0644
+
+- name: Sudoers file for login as nimbus user
+  template:
+    src: 'nimbus_sudoers.j2'
+    dest: '/etc/sudoers.d/81-nimbus-login'
+    mode: 0440
 
 - name: Create directories
   file:
@@ -9,11 +28,6 @@
     mode: 0750
   with_items:
     - '{{ beacon_node_data_path }}'
-
-- name: Create user for beacon node builds
-  user:
-    name: '{{ beacon_node_user }}'
-    group: '{{ beacon_node_group }}'
 
 - name: Set disable rebase as merge strategy
   git_config:
@@ -38,3 +52,13 @@
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
     mode: 0775
+
+- name: Create build script launchd job definition
+  template:
+    src: 'launchd.plist.j2'
+    dest: '{{ beacon_node_build_launchd_path }}'
+
+- name: Reload launchd job definition
+  community.general.launchd:
+    name: com.status.beacon-node-build-unstable
+    state: restarted

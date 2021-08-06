@@ -1,0 +1,36 @@
+autoload colors                   # enable colors
+autoload -U compinit              # enable auto completion
+colors                            # initialize
+
+export HISTSIZE=4000              # number of lines kept in history
+export SAVEHIST=4000              # number of lines saved in the history after logout
+export HISTFILE="$HOME/.zhistory" # location of history
+setopt INC_APPEND_HISTORY         # append command to history file once executed
+setopt APPEND_HISTORY             # Dont overwrite, append!
+setopt SHARE_HISTORY              # for sharing history between zsh proceses
+setopt HIST_IGNORE_ALL_DUPS       # Ignore duplicates in history
+setopt HIST_IGNORE_SPACE          # dont record entry if a space is preceeding it
+setopt NO_CASE_GLOB               # case insensitive globbing
+setopt NOFLOWCONTROL              # Nobody needs flow control anymore. Troublesome feature.
+setopt AUTO_PUSHD                 # auto directory pushd that you can get dirs list by cd -[tab]
+setopt AUTOCD                     # change directory without using cd command
+setopt EXTENDEDGLOB               # Regular expressions in files
+setopt COMPLETE_IN_WORD           # allow tab completion in the middle of a word
+setopt CHECK_JOBS                 # Dont quit console if processes are running
+setopt completealiases
+
+# 10ms for key sequences
+export KEYTIMEOUT=1
+export PROMPT='%F{yellow}%n%f@%F{green}%M%f:%F{blue}%~%f %# '
+export EDITOR='vim'
+
+# reload zshrc
+function src() {
+    autoload -U zrecompile
+    [[ -f ~/.zshrc ]] && zrecompile -p ~/.zshrc
+    [[ -f ~/.zcompdump ]] && zrecompile -p ~/.zcompdump
+    [[ -f ~/.zcompdump ]] && zrecompile -p ~/.zcompdump
+    [[ -f ~/.zshrc.zwc.old ]] && rm -f ~/.zshrc.zwc.old
+    [[ -f ~/.zcompdump.zwc.old ]] && rm -f ~/.zcompdump.zwc.old
+    source ~/.zshrc
+}

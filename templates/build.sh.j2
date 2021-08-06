@@ -18,12 +18,11 @@ function fetchChanges() {
 
 function buildBinaries() {
     # Lower CPU and I/O priority so it doesn't affect the running beacon node
-    # TODO no ionice on macos
     NICE="nice -n 19"
 
     ${NICE} make -j6 update
     ${NICE} make -j6 {{ beacon_node_build_targets | join(" ") }} \
-        LOG_LEVEL="TRACE" NIMFLAGS="-d:disableMarchNative -d:testnet_servers_image -d:noSignalHandler"
+        LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler"
 
     # Rename binaries to match commit they were built from.
 {% for target in beacon_node_build_targets %}
