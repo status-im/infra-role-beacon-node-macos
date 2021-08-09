@@ -17,7 +17,7 @@ function fetchChanges() {
 }
 
 function buildBinaries() {
-    # Lower CPU and I/O priority so it doesn't affect the running beacon node
+    # Lower CPU priority so it doesn't affect the running beacon node
     NICE="nice -n 19"
 
     ${NICE} make -j6 update
@@ -25,12 +25,15 @@ function buildBinaries() {
         LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler"
 
     # Rename binaries to match commit they were built from.
+    cd build/
 {% for target in beacon_node_build_targets %}
-    mv "build/{{ target }}" "build/{{ target }}_${COMMIT}"
+    mv {{ target }} {{ target }}_${COMMIT}
 
     # Create a symbolic link to the latest version
-    ln -fs build/{{ target }}_${COMMIT} build/{{ target }}
+    ln -fs {{ target }}_${COMMIT} {{ target }}
+
 {% endfor %}
+    cd ..
 
     # Delete copies that are older than 7 days
     find build -mtime +7 -exec rm '{}' \+
