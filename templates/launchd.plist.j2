@@ -5,6 +5,9 @@
   <key>Label</key>
   <string>com.status.beacon-node-build-unstable</string>
 
+  <key>WorkingDirectory</key>
+  <string>/Users/nimbus/data/beacon-node-mainnet-unstable</string>
+
   <key>ProgramArguments</key>
   <array>
     <string>/Users/nimbus/data/beacon-node-mainnet-unstable/build.sh</string>
@@ -16,11 +19,13 @@
   <key>GroupName</key>
   <string>staff</string>
 
-  <key>StartInterval</key>
-  <integer>3600</integer>
-
-  <key>RootDirectory</key>
-  <string>/Users/nimbus/data/beacon-node-mainnet-unstable</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>0</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
 
   <key>RunAtLoad</key>
   <true/>
