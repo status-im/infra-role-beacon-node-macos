@@ -3,30 +3,34 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.status.beacon-node-build-unstable</string>
+  <string>status.{{ beacon_node_service_name }}</string>
 
   <key>WorkingDirectory</key>
-  <string>/Users/nimbus/data/beacon-node-mainnet-unstable</string>
+  <string>{{ beacon_node_path }}</string>
 
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/nimbus/data/beacon-node-mainnet-unstable/build.sh</string>
+    <string>{{ beacon_node_build_script_path }}</string>
   </array>
 
   <key>UserName</key>
-  <string>nimbus</string>
+  <string>{{ beacon_node_user }}</string>
 
   <key>GroupName</key>
-  <string>staff</string>
+  <string>{{ beacon_node_group }}</string>
 
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>0</integer>
+    <integer>{{ beacon_node_build_start_time['hour'] }}</integer>
     <key>Minute</key>
-    <integer>0</integer>
+    <integer>{{ beacon_node_build_start_time['minute'] }}</integer>
   </dict>
 
+  <key>TimeOut</key>
+  <integer>{{ beacon_node_build_timeout }}</integer>
+
+  <!-- for debugging, remove later -->
   <key>RunAtLoad</key>
   <true/>
 
