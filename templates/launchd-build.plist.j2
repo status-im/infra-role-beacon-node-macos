@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>status.{{ beacon_node_service_name }}-build</string>
+
+  <key>WorkingDirectory</key>
+  <string>{{ beacon_node_path }}</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{ beacon_node_build_script_path }}</string>
+  </array>
+
+  <key>UserName</key>
+  <string>{{ beacon_node_user }}</string>
+
+  <key>GroupName</key>
+  <string>{{ beacon_node_group }}</string>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>{{ beacon_node_build_start_time['hour'] }}</integer>
+    <key>Minute</key>
+    <integer>{{ beacon_node_build_start_time['minute'] }}</integer>
+  </dict>
+
+  <key>TimeOut</key>
+  <integer>{{ beacon_node_build_timeout }}</integer>
+
+  <key>StandardErrorPath</key>
+  <string>/tmp/beacon-node-build.err</string>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/beacon-node-build.out</string>
+</dict>
+</plist>
