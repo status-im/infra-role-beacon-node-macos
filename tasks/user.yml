@@ -1,0 +1,28 @@
+---
+- name: Create user for beacon node builds
+  user:
+    name: '{{ beacon_node_user }}'
+    group: '{{ beacon_node_group }}'
+    shell: '/bin/zsh'
+    uid: 8000
+
+- name: Copy .zshrc file for beacon node user
+  copy:
+    src: 'zshrc'
+    dest: '{{ beacon_node_user_path }}/.zshrc'
+    owner: '{{ beacon_node_user }}'
+    group: '{{ beacon_node_group }}'
+    mode: 0644
+
+- name: Sudoers file for login as nimbus user
+  template:
+    src: 'nimbus_sudoers.j2'
+    dest: '/etc/sudoers.d/81-nimbus-login'
+    mode: 0440
+
+- name: Set disable rebase as merge strategy
+  git_config:
+    scope: 'global'
+    name: 'pull.rebase'
+    value: 'false'
+  become_user: '{{ beacon_node_user }}'
