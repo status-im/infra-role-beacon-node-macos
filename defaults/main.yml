@@ -49,11 +49,6 @@ beacon_node_dist_validators_data_path: '{{ beacon_node_data_path }}/{{ beacon_no
 #beacon_node_dist_validators_start: ~
 #beacon_node_dist_validators_end: ~
 
-# resource limits, mem in MB
-# NOTE: was used when we ran the node in a docker container, need to be adapted to systemd
-# beacon_node_mem_limit: '{{ (ansible_memtotal_mb * 0.5) | int }}'
-# beacon_node_mem_reserve: '{{ (ansible_memtotal_mb * 0.4) | int }}'
-
 # Consul service definition settings
 beacon_node_consul_service_name: 'beacon-node'
 beacon_node_consul_service_file_name: '{{ beacon_node_service_name | replace("-", "_") }}'

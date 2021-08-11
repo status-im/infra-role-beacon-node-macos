@@ -1,0 +1,10 @@
+---
+- name: Create beacon node launchd config file
+  template:
+    src: 'launchd.plist.j2'
+    dest: '{{ beacon_node_launchd_config_path }}'
+
+- name: Reload beacon node launchd config
+  community.general.launchd:
+    name: 'status.{{ beacon_node_service_name }}'
+    state: reloaded
