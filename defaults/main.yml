@@ -15,7 +15,10 @@ beacon_node_log_folder: '{{ beacon_node_path }}/logs'
 beacon_node_log_path: '{{ beacon_node_log_folder }}/node.log'
 beacon_node_netkey_path: '{{ beacon_node_data_path }}/netkey'
 beacon_node_rpc_script_path: '{{ beacon_node_path }}/rpc.sh'
-beacon_node_launchd_config_path: '/Library/LaunchDaemons/status.{{ beacon_node_service_name }}.plist'
+
+# daemon is started at login
+beacon_node_launchd_config_folder: '{{ beacon_node_user_path }}/Library/LaunchAgents'
+beacon_node_launchd_config_path: '{{ beacon_node_launchd_config_folder }}/status.{{ beacon_node_service_name }}.plist'
 
 # beacon_node_build_timer_enabled: true
 beacon_node_build_script_path: '{{ beacon_node_path }}/build.sh'
@@ -63,3 +66,6 @@ beacon_node_slashing_db_kind: 'v2'
 
 # Netkey file contents, optional.
 # beacon_node_netkey: '{"key":"json"}'
+
+# homebrew
+homebrew_path: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"

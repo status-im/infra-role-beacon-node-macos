@@ -1,0 +1,14 @@
+{{ beacon_node_log_path }}
+{
+    rotate 72
+    maxsize 10M
+    hourly
+    missingok
+    notifempty
+    delaycompress
+    copytruncate
+    compress
+    dateext
+    dateformat %Y%m%d_%H%M.
+    extension log
+}

@@ -1,0 +1,24 @@
+---
+- name: Install logrotate
+  homebrew:
+    name: 'logrotate'
+  become: false
+
+# logrotate needs to write its state file to /opt/homebrew/var/lib
+# homebrew doesn't create this directory automatically
+- name: Create logrotate state file directory
+  file:
+    path: '{{ homebrew_path }}/var/lib'
+    state: directory
+  become: false
+
+- name: Create logrotate config for beacon node
+  template:
+    src: 'logrotate.conf.j2'
+    dest: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
+    mode: 0644
+  become: false
+
+- name: Restart logrotate
+  command: '{{ homebrew_path }}/bin/brew services restart logrotate'
+  become: false

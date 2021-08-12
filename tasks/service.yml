@@ -6,12 +6,12 @@
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
 
-# newsyslog runs every 30 minutes
-- name: Setup log rotation
-  template:
-    src: newsyslog.conf.j2
-    dest: '/etc/newsyslog.d/{{ beacon_node_service_name }}.conf'
-    mode: 0644
+- name: Create launchd config directory
+  file:
+    path: '{{ beacon_node_launchd_config_folder }}'
+    state: directory
+    owner: '{{ beacon_node_user }}'
+    group: '{{ beacon_node_group }}'
 
 - name: Create beacon node launchd config file
   template:
