@@ -22,7 +22,7 @@ function buildBinaries() {
 
     ${NICE} make -j6 update
     ${NICE} make -j6 {{ beacon_node_build_targets | join(" ") }} \
-        LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler"
+        LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler -d:disableMarchNative"
 
     # Rename binaries to match commit they were built from.
     cd build/
@@ -41,6 +41,8 @@ function buildBinaries() {
 
 #-------------------------------------------------------------------------------
 
+echo "[$(date)] Starting build script"
+
 BRANCH="{{ beacon_node_repo_branch }}"
 
 if [[ "${USER}" != "{{ beacon_node_user }}" ]]; then
@@ -54,7 +56,7 @@ pushd repo >/dev/null
 
 # Detached HEAD means we're probably on a tag
 if headIsDetached; then
-    echo " >>> Deatached HEAD, nothing to fetch."
+    echo " >>> Detached HEAD, nothing to fetch."
 else
     echo " >>> Fetching changes..."
     fetchChanges
@@ -67,6 +69,8 @@ if binaryExists && [[ "$1" != "--force" ]]; then
 else
     echo " >>> Building binaries..."
     buildBinaries
+
+    # restart service
 fi
 
 popd >/dev/null

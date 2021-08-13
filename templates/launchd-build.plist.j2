@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>status.{{ beacon_node_service_name }}-build</string>
+  <string>{{ beacon_node_build_launchd_service_name }}</string>
 
   <key>WorkingDirectory</key>
   <string>{{ beacon_node_path }}</string>
@@ -31,9 +31,9 @@
   <integer>{{ beacon_node_build_timeout }}</integer>
 
   <key>StandardErrorPath</key>
-  <string>/tmp/beacon-node-build.err</string>
+  <string>{{ beacon_node_build_log_path }}</string>
 
   <key>StandardOutPath</key>
-  <string>/tmp/beacon-node-build.out</string>
+  <string>{{ beacon_node_build_log_path }}</string>
 </dict>
 </plist>
