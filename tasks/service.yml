@@ -1,24 +1,18 @@
 ---
-- name: Create log directory
+- name: Create log directory for beacon node
   file:
     path: '{{ beacon_node_log_folder }}'
     state: directory
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
 
-- name: Create launchd config directory
-  file:
-    path: '{{ beacon_node_launchd_config_folder }}'
-    state: directory
-    owner: '{{ beacon_node_user }}'
-    group: '{{ beacon_node_group }}'
-
 - name: Create beacon node launchd config file
   template:
-    src: 'launchd.plist.j2'
+    src: launchd.plist.j2
     dest: '{{ beacon_node_launchd_config_path }}'
+  register: beacon_node_config_result
 
-- name: Reload beacon node launchd config
+- name: Restart beacon node
   community.general.launchd:
-    name: 'status.{{ beacon_node_service_name }}'
-    state: reloaded
+    name: '{{ beacon_node_launchd_service_name }}'
+    state: '{{ beacon_node_config_result.changed | ternary("restarted", "started") }}'

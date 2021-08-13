@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>status.{{ beacon_node_service_name }}</string>
+  <string>{{ beacon_node_launchd_service_name }}</string>
 
   <key>WorkingDirectory</key>
   <string>{{ beacon_node_path }}</string>
@@ -41,9 +41,6 @@
   <string>{{ beacon_node_group }}</string>
 
   <key>KeepAlive</key>
-  <true/>
-
-  <key>RunAtLoad</key>
   <true/>
 
   <key>StandardErrorPath</key>
