@@ -1,7 +1,7 @@
 ---
 - name: Install logrotate
   homebrew:
-    name: 'logrotate'
+    name: logrotate
   become: false
 
 # logrotate needs to write its state file to /opt/homebrew/var/lib
@@ -14,16 +14,18 @@
 
 - name: Create logrotate config for beacon node
   template:
-    src: 'logrotate.conf.j2'
+    src: logrotate.conf.j2
     dest: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
     mode: 0644
   become: false
 
 - name: Check if launchd config file already exists
   stat:
-    path: ~/Library/LaunchAgents/homebrew.mxcl.logrotate.plist
+    path: '~/Library/LaunchAgents/homebrew.mxcl.logrotate.plist'
   register: logrotate_stat_plist
+  become: false
 
+# if the launch agent config already exists, calling this will error
 - name: Enable logrotate service to start on login
   command: '{{ homebrew_path }}/bin/brew services start logrotate'
   when:
