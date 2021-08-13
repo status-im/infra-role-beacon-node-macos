@@ -14,10 +14,10 @@
     group: '{{ beacon_node_group }}'
     mode: 0644
 
-- name: Sudoers file for login as nimbus user
+- name: Create sudoers file for nimbus user
   template:
     src: 'nimbus_sudoers.j2'
-    dest: '/etc/sudoers.d/81-nimbus-login'
+    dest: '/etc/sudoers.d/81-nimbus'
     mode: 0440
 
 - name: Set disable rebase as merge strategy

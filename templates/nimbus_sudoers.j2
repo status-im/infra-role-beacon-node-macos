@@ -1,4 +1,6 @@
 # Allow non-root users logging in as nimbus user
-
-# %{{ beacon_node_group }} ALL= NOPASSWD: /bin/su – postgres
 %{{ beacon_node_group }} ALL=({{ beacon_node_user }}) NOPASSWD: ALL
+
+# Allow nimbus user to load/unload beacon node services and builds
+{{ beacon_node_user }} ALL=(ALL) NOPASSWD: /bin/launchctl load status.beacon-node-*
+{{ beacon_node_user }} ALL=(ALL) NOPASSWD: /bin/launchctl unload status.beacon-node-*
