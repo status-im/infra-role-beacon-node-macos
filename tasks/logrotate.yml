@@ -19,6 +19,13 @@
     mode: 0644
   become: false
 
-- name: Restart logrotate
-  command: '{{ homebrew_path }}/bin/brew services restart logrotate'
+- name: Check if launchd config file already exists
+  stat:
+    path: ~/Library/LaunchAgents/homebrew.mxcl.logrotate.plist
+  register: logrotate_stat_plist
+
+- name: Enable logrotate service to start on login
+  command: '{{ homebrew_path }}/bin/brew services start logrotate'
+  when:
+    - not logrotate_stat_plist.stat.exists
   become: false
