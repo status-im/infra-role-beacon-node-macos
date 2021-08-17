@@ -25,29 +25,25 @@ The naming pattern is `beacon-node-{network}-{branch}`.
 
 User must be `beacon_node_user` (`nimbus` by default).
 
-## Launchd services
-
-The following launchd configs will be registered:
-
-```
-# beacon node process
-status.beacon-node-mainnet-unstable
-# scheduled build
-status.beacon-node-mainnet-unstable-build
-```
-
 ## Beacon Node
 
-Start/Stop (called `load/unload` in launchd):
+Starting or stopping a note (called `load/unload` in launchd):
 
 ```
 cd /Library/LaunchDaemons
-
-sudo launchctl load status.beacon-node-mainnet-unstable.plist
 sudo launchctl unload status.beacon-node-mainnet-unstable.plist
+sudo launchctl load status.beacon-node-mainnet-unstable.plist
 ```
 
-Show Logs:
+There is no restart command. To restart the node run unload then load.
+
+## Logs
+
+Logs are saved in the `logs` directory. There are two log files: `node.log`
+shows the stdout/stderr of the beacon node process. `build.log` shows the output
+of the build script.
+
+To see the beacon node logs:
 
 ```
 tail -f beacon-node-mainnet-unstable/logs/node.log
@@ -55,18 +51,23 @@ tail -f beacon-node-mainnet-unstable/logs/node.log
 
 ## Builds
 
-Create a new build:
+Run the `build.sh` script to start a new build. It's important that the working
+directory is the same as the build script. 
+
+To create a new build run:
 
 ```
-# Important to change the working directory
-cd beacon-node-mainnet-unstable
+cd beacon-node-mainnet-unstable/
 ./build.sh
-
-# If the commit was build previously we need to pass --force
-./build.sh --force
 ```
 
-Show build logs:
+Note that the build script will not run if the user is not `nimbus`. It will
+also not build the same git commit twice, if this is needed pass the `--force`
+flag.
+
+Usually builds are started from a launchd service that runs once a day.
+
+To see the logs of previous builds:
 
 ```
 tail -f logs/build.log
