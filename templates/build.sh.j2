@@ -65,12 +65,15 @@ fi
 COMMIT=$(git rev-parse --short=8 HEAD)
 
 if binaryExists && [[ "$1" != "--force" ]]; then
-    echo " >>> Binary already built"
+    echo " >>> Binary already built. Run with --force flag to override"
 else
     echo " >>> Building binaries..."
     buildBinaries
 
     # restart service
+    cd {{ beacon_node_launchd_config_folder }}
+    sudo launchctl unload {{ beacon_node_launchd_service_name }}.plist
+    sudo launchctl load {{ beacon_node_launchd_service_name }}.plist
 fi
 
 popd >/dev/null
