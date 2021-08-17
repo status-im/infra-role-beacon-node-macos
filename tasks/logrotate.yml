@@ -17,7 +17,6 @@
     src: logrotate.conf.j2
     dest: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
     mode: 0644
-  become: false
 
 - name: Check if launchd config file already exists
   stat:
