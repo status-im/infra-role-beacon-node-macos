@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Arthur Koziel <arthur@status.im>
+  description: Build and run nimbus beacon node on macOS
+  company: Status.im
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+  dependencies:
+    - name: infra-role-dist-validators
+      src: git+git@github.com:status-im/infra-role-dist-validators.git
+      scm: git
