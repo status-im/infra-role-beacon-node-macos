@@ -5,5 +5,5 @@
 - include_tasks: build.yml
 - include_tasks: logrotate.yml
 - include_tasks: service.yml
-# - import_tasks: validators.yml
-#   when: beacon_node_dist_validators_enabled
+- import_tasks: validators.yml
+  when: beacon_node_dist_validators_enabled
