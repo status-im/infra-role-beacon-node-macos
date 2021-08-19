@@ -72,3 +72,22 @@ To see the logs of previous builds:
 ```
 tail -f logs/build.log
 ```
+
+## Uninstall
+
+When removing a deployment make sure to stop and delete the launchd daemons:
+
+```
+# stop the beacon node
+cd /Library/LaunchDaemons
+sudo launchctl unload status.beacon-node-mainnet-unstable.plist
+rm status.beacon-node-mainnet-unstable.plist
+
+# unload the periodic build job
+sudo launchctl unload status.beacon-node-mainnet-unstable-build.plist
+rm status.beacon-node-mainnet-unstable-build.plist
+
+# delete the repo, data and logs
+rm -rf ~/beacon-node-mainnet-unstable
+```
+
