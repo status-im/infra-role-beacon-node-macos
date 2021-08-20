@@ -115,5 +115,8 @@ rm status.beacon-node-mainnet-unstable-build.plist
 
 # delete the repo, data and logs
 rm -rf ~/beacon-node-mainnet-unstable
+
+# delete logrotate config
+rm /opt/homebrew/etc/logrotate.d/beacon-node-mainnet-unstable.conf
 ```
 
