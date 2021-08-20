@@ -16,7 +16,14 @@
   template:
     src: logrotate.conf.j2
     dest: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
+    owner: root
     mode: 0644
+
+# logrotate will fail to start if configs are not owned by root
+- name: Make sure logrotate.conf is owned by root
+  file:
+    path: '{{ homebrew_path }}/etc/logrotate.conf'
+    owner: root
 
 - name: Check if launchd config file already exists
   stat:
@@ -24,7 +31,7 @@
   register: logrotate_stat_plist
   become: false
 
-# if the launch agent config already exists, calling this will error
+# if the launch agent config already exists, calling "brew services start" will error
 - name: Enable logrotate service to start on login
   command: '{{ homebrew_path }}/bin/brew services start logrotate'
   when:
