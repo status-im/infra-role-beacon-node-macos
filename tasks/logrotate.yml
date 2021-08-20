@@ -4,6 +4,15 @@
     name: logrotate
   become: false
 
+# the homebrew package comes with a default launchd config that runs daily
+# we overwrite it with one that runs hourly
+- name: Create launchd config for logrotate
+  template:
+    src: launchd-logrotate.plist.j2
+    dest: '/Library/LaunchDaemons/homebrew.mxcl.logrotate.plist'
+    owner: root
+    mode: 0644
+
 # logrotate needs to write its state file to /opt/homebrew/var/lib
 # homebrew doesn't create this directory automatically
 - name: Create logrotate state file directory
@@ -25,15 +34,7 @@
     path: '{{ homebrew_path }}/etc/logrotate.conf'
     owner: root
 
-- name: Check if launchd config file already exists
-  stat:
-    path: '~/Library/LaunchAgents/homebrew.mxcl.logrotate.plist'
-  register: logrotate_stat_plist
-  become: false
-
-# if the launch agent config already exists, calling "brew services start" will error
-- name: Enable logrotate service to start on login
-  command: '{{ homebrew_path }}/bin/brew services start logrotate'
-  when:
-    - not logrotate_stat_plist.stat.exists
-  become: false
+- name: Reload launchd config
+  community.general.launchd:
+    name: homebrew.mxcl.logrotate
+    state: reloaded
