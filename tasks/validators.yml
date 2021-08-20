@@ -9,12 +9,12 @@
     dist_validators_user: '{{ beacon_node_user }}'
     dist_validators_users_path: '/Users'
 
-# - when: dist_validators_deployed is defined
-#   block:
-#     - name: 'Show number of validators deployed'
-#       debug: msg='Deployed {{ dist_validators_deployed }} validators'
+- when: dist_validators_deployed is defined
+  block:
+    - name: 'Show number of validators deployed'
+      debug: msg='Deployed {{ dist_validators_deployed }} validators'
 
-#     - name: Restart beacon node
-#       community.general.launchd:
-#         name: 'status.{{ beacon_node_service_name }}'
-#         state: restarted
+    - name: Restart beacon node
+      community.general.launchd:
+        name: '{{ beacon_node_launchd_service_name }}'
+        state: restarted
