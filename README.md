@@ -32,13 +32,16 @@ User must be `beacon_node_user` (`nimbus` by default).
 
 ## Beacon Node
 
-Starting or stopping a beacon node (called `load/unload` in launchd):
+Starting or stopping a beacon node:
 
 ```
 cd /Library/LaunchDaemons
 sudo launchctl unload status.beacon-node-mainnet-unstable.plist
 sudo launchctl load status.beacon-node-mainnet-unstable.plist
 ```
+
+Note that the launchd config has the `keepalive` value set to `true` and running
+`launchctl stop` will immediately restart the node process.
 
 There is no restart command in launchd. To restart the node run `unload` then `load`.
 
@@ -59,10 +62,21 @@ tail -f beacon-node-mainnet-unstable/logs/node.log
 ### Automated Builds
 
 Automated builds are done once a day at a time specified with
-`beacon_node_build_start_time`. The builds are started from a launchd Daemon.
+`beacon_node_build_start_time`. The builds are started from a launchd daemon.
+
 The launchd config file is located in `/Library/LaunchDaemons` and named after
 the network and branch followed by a `-build` suffix e.g.
 `status.beacon-node-prater-unstable-build.plist`.
+
+To manually trigger a launchd build job:
+
+```
+# start a build
+sudo launchctl start status.beacon-node-prater-stable-build
+
+# stop a running build
+sudo launchctl stop status.beacon-node-prater-stable-build
+```
 
 To stop the timer from running in the future you need to unload the file:
 
@@ -119,4 +133,16 @@ rm -rf ~/beacon-node-mainnet-unstable
 # delete logrotate config
 rm /opt/homebrew/etc/logrotate.d/beacon-node-mainnet-unstable.conf
 ```
+
+## Known Issues
+
+The first time a repo is checked out and built it fails with:
+
+```
+CMake not installed. Aborting.
+make[1]: *** [install/usr/lib/libunwind.a] Error 1
+make: *** [libbacktrace] Error 2
+make: *** Waiting for unfinished jobs....
+```
+
 
