@@ -2,5 +2,7 @@
 %{{ beacon_node_group }} ALL=({{ beacon_node_user }}) NOPASSWD: ALL
 
 # Allow nimbus user to load/unload beacon node services and builds
+{{ beacon_node_user }} ALL=(ALL) NOPASSWD: /bin/launchctl start status.beacon-node-*
+{{ beacon_node_user }} ALL=(ALL) NOPASSWD: /bin/launchctl stop status.beacon-node-*
 {{ beacon_node_user }} ALL=(ALL) NOPASSWD: /bin/launchctl load status.beacon-node-*
 {{ beacon_node_user }} ALL=(ALL) NOPASSWD: /bin/launchctl unload status.beacon-node-*
