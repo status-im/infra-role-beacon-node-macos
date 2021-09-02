@@ -51,6 +51,9 @@ if [[ "${USER}" != "{{ beacon_node_user }}" ]]; then
     exit 1
 fi
 
+# Source profile to set correct PATH (to find homebrew binaries such as cmake)
+source /etc/profile
+
 # Build the Beacon node binaries
 pushd repo >/dev/null
 
@@ -71,6 +74,7 @@ else
     buildBinaries
 
     # restart service
+    echo " >>> Restarting service"
     cd {{ beacon_node_launchd_config_folder }}
     sudo launchctl unload {{ beacon_node_launchd_service_name }}.plist
     sudo launchctl load {{ beacon_node_launchd_service_name }}.plist
