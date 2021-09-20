@@ -13,13 +13,15 @@ beacon_node_log_folder: '{{ beacon_node_path }}/logs'
 beacon_node_log_path: '{{ beacon_node_log_folder }}/node.log'
 beacon_node_netkey_path: '{{ beacon_node_data_path }}/netkey'
 beacon_node_rpc_script_path: '{{ beacon_node_path }}/rpc.sh'
+beacon_node_validators_dir: "" # empty string means no override
+beacon_node_secrets_dir: "" # empty string means no override
 
 # launchd service
 beacon_node_launchd_service_name: 'status.{{ beacon_node_service_name }}'
 beacon_node_launchd_config_folder: '/Library/LaunchDaemons'
 beacon_node_launchd_config_path: '{{ beacon_node_launchd_config_folder }}/{{ beacon_node_launchd_service_name }}.plist'
 
-# builds
+# Builds
 beacon_node_build_script_path: '{{ beacon_node_path }}/build.sh'
 beacon_node_build_launchd_service_name: 'status.{{ beacon_node_service_name }}-build'
 beacon_node_build_launchd_path: '/Library/LaunchDaemons/{{ beacon_node_build_launchd_service_name }}.plist'
@@ -39,13 +41,29 @@ beacon_node_doppelganger_detection: true
 # For validation
 beacon_node_valid_network_names: ["pyrmont", "prater", "mainnet", "steklo", "nocturne"]
 
-# connectivity settings
+# Connectivity settings
 beacon_node_public_address: '{{ ansible_host }}'
 beacon_node_max_peers: 160
 beacon_node_discovery_port: 9000
 beacon_node_listening_port: 9000
+
+# Number of hardware threads to use
+beacon_node_threads: 1
+
+# Scraping of metrics done via VPN. Protected by firewall.
+beacon_node_metrics_enabled: true
+beacon_node_metrics_address: '0.0.0.0'
 beacon_node_metrics_port: 9200
+
+# The JSON-RPC service is disabled because this is a legacy
+# functionality that will be removed from Nimbus eventually
+beacon_node_rpc_enabled: false
+beacon_node_rpc_address: '127.0.0.1'
 beacon_node_rpc_port: 9900
+
+beacon_node_rest_enabled: true
+beacon_node_rest_address: '127.0.0.1'
+beacon_node_rest_port: 5052
 
 # Automatically distribute validators
 beacon_node_dist_validators_enabled: false
