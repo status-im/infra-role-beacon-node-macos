@@ -23,7 +23,7 @@ beacon_node_launchd_config_path: '{{ beacon_node_launchd_config_folder }}/{{ bea
 
 # Builds
 beacon_node_build_script_path: '{{ beacon_node_path }}/build.sh'
-beacon_node_build_launchd_service_name: 'status.{{ beacon_node_service_name }}-build'
+beacon_node_build_launchd_service_name: 'status.build-{{ beacon_node_service_name }}'
 beacon_node_build_launchd_path: '/Library/LaunchDaemons/{{ beacon_node_build_launchd_service_name }}.plist'
 beacon_node_build_log_path: '{{ beacon_node_log_folder }}/build.log'
 beacon_node_build_timeout: 3600
