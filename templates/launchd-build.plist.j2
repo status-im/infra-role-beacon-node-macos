@@ -22,9 +22,9 @@
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>{{ beacon_node_build_start_time['hour'] }}</integer>
+    <integer>{{ beacon_node_build_start_time.split(':')[0] }}</integer>
     <key>Minute</key>
-    <integer>{{ beacon_node_build_start_time['minute'] }}</integer>
+    <integer>{{ beacon_node_build_start_time.split(':')[1] }}</integer>
   </dict>
 
   <key>TimeOut</key>
