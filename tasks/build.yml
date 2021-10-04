@@ -29,16 +29,13 @@
 - name: Check if node binary exists
   stat:
     path: '{{ beacon_node_repo_path }}/build/nimbus_beacon_node'
-  register: beacon_node_bin
 
-- name: Start new build
+- name: Start new node binary build
   community.general.launchd:
     name: '{{ beacon_node_build_launchd_service_name }}'
     state: started
-  when: not beacon_node_bin.stat.exists
 
 - name: Wait for build to finish (SLOW)
   wait_for:
     path: '{{ beacon_node_repo_path }}/build/nimbus_beacon_node'
     timeout: 600 # 10min
-  when: not beacon_node_bin.stat.exists
