@@ -75,9 +75,25 @@ User must be `beacon_node_user` (`nimbus` by default).
 
 # Usage
 
-Starting or stopping a beacon node:
+To see service status use:
 ```
-cd /Library/LaunchDaemons
+ > sudo launchctl list status.beacon-node-mainnet-stable
+{
+	"StandardOutPath" = "/Users/nimbus/beacon-node-mainnet-stable/logs/service.log";
+	"LimitLoadToSessionType" = "System";
+	"StandardErrorPath" = "/Users/nimbus/beacon-node-mainnet-stable/logs/service.log";
+	"Label" = "status.beacon-node-mainnet-stable";
+	"OnDemand" = false;
+	"LastExitStatus" = 0;
+	"PID" = 6347;
+	"Program" = "/Users/nimbus/beacon-node-mainnet-stable/repo/build/nimbus_beacon_node";
+	"ProgramArguments" = (
+		"/Users/nimbus/beacon-node-mainnet-stable/repo/build/nimbus_beacon_node";
+		"--network=mainnet";
+...
+```
+Starting or stopping a beacon node:
+```sh
 sudo launchctl unload status.beacon-node-mainnet-unstable.plist
 sudo launchctl load status.beacon-node-mainnet-unstable.plist
 ```
@@ -107,13 +123,13 @@ The launchd config file is located in `/Library/LaunchDaemons` and named after t
 
 To manually manage the launchd build job use `launchctl`:
 ```
-sudo launchctl start status.build-beacon-node-prater-stable
-sudo launchctl stop status.build-beacon-node-prater-stable
+sudo launchctl start status.build-beacon-node-mainnet-stable
+sudo launchctl stop status.build-beacon-node-mainnet-stable
 ```
 To stop the timer from running in the future you need to unload the file:
 ```
 cd /Library/LaunchDaemons
-sudo launchctl unload status.build-beacon-node-prater-unstable.plist
+sudo launchctl unload status.build-beacon-node-mainnet-unstable.plist
 ```
 
 ## Manual Builds
