@@ -76,10 +76,11 @@ beacon_node_dist_validators_data_path: '{{ beacon_node_data_path }}/{{ beacon_no
 # WebSocket RPC URLs, Goerli for testnets
 beacon_node_web3_urls: ['wss://goerli.infura.io/ws/v3/6224f3c792cc443fafb64e70a98f871e']
 
+# Version of schema for SQLite slashing database.
 beacon_node_slashing_db_kind: 'v2'
 
 # Netkey file contents, optional.
-# beacon_node_netkey: '{"key":"json"}'
+#beacon_node_netkey: '{"key":"json"}'
 
 # Homebrew path prefix (differs on arm/intel)
 homebrew_path: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
