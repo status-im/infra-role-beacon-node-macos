@@ -3,6 +3,7 @@ beacon_node_service_name: 'beacon-node-{{ beacon_node_network }}-{{ beacon_node_
 beacon_node_service_path: '{{ beacon_node_user_path }}/{{ beacon_node_service_name }}'
 
 beacon_node_user: 'nimbus'
+beacon_node_uid: 3000
 beacon_node_group: 'staff'
 
 beacon_node_user_path: '/Users/{{ beacon_node_user }}'

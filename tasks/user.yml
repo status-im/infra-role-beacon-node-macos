@@ -2,9 +2,9 @@
 - name: Create user for beacon node builds
   user:
     name: '{{ beacon_node_user }}'
+    uid: '{{ beacon_node_uid }}'
     group: '{{ beacon_node_group }}'
     shell: '/bin/zsh'
-    uid: 8000
 
 - name: Copy .zshrc file for beacon node user
   copy:
