@@ -29,8 +29,10 @@ function buildBinaries() {
 {% for target in beacon_node_build_targets %}
     mv {{ target }} {{ target }}_${COMMIT}
 
+    # Copy binary, since app firewall can't handle that.
+    cp {{ target }}_${COMMIT} {{ target }}
     # Create a symbolic link to the latest version
-    ln -fs {{ target }}_${COMMIT} {{ target }}
+    ln -fs {{ target }}_${COMMIT} {{ target }}.link
 
 {% endfor %}
     cd ..

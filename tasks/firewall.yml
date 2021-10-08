@@ -1,0 +1,20 @@
+---
+- name: Create node firewall rule file
+  template:
+    src: 'node.pf.conf.j2'
+    dest: '/etc/pf.anchors/im.status.{{ beacon_node_service_name }}'
+    mode: 0644
+  register: pf_anchor_file
+
+- name: Add rules to main firewall config
+  blockinfile:
+    path: '/etc/pf.conf'
+    insertafter: 'EOF'
+    marker: '# {mark} Ansible: infra-role-beacon-node-macos - {{ beacon_node_service_name }}'
+    block: |
+      anchor "im.status.{{ beacon_node_service_name }}"
+      load anchor "im.status.{{ beacon_node_service_name }}" from "/etc/pf.anchors/im.status.{{ beacon_node_service_name }}"
+
+- name: Reload firewall rules
+  command: 'pfctl -f /etc/pf.conf'
+  when: pf_anchor_file.changed
