@@ -1,0 +1,17 @@
+---
+- name: Create node firewall rule file
+  template:
+    src: 'node.pf.conf.j2'
+    dest: '/etc/firewall.anchors/im.status.{{ beacon_node_service_name }}'
+    mode: 0644
+  notify: 'Reload firewall rules'
+
+- name: Add rules to main firewall config
+  blockinfile:
+    path: '/etc/firewall.anchors/all'
+    insertafter: 'EOF'
+    marker: '# {mark} {{ ansible_role_name }} - {{ beacon_node_service_name }}'
+    block: |
+      anchor "im.status.{{ beacon_node_service_name }}"
+      load anchor "im.status.{{ beacon_node_service_name }}" from "/etc/firewall.anchors/im.status.{{ beacon_node_service_name }}"
+  notify: 'Reload firewall rules'

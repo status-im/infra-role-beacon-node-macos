@@ -1,0 +1,5 @@
+# {{ beacon_node_service_name }}
+# Libp2p peering
+pass in quick proto tcp from any to any port {{ beacon_node_listening_port }}
+# Libp2p discovery
+pass in quick proto udp from any to any port {{ beacon_node_discovery_port }}

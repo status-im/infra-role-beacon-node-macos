@@ -7,4 +7,5 @@
 - include_tasks: service.yml
 - import_tasks: validators.yml
   when: beacon_node_dist_validators_enabled
+- include_tasks: firewall.yml
 - include_tasks: consul.yml
