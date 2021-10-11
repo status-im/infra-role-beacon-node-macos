@@ -21,7 +21,8 @@
         tags: ['{{ env }}.{{ stage }}', 'beacon', 'nimbus', 'metrics']
         meta:
           container: '{{ beacon_node_service_name }}'
-        checks:
-          - name: '{{ beacon_node_consul_metrics_service_name }}-health'
-            type: 'http'
-            http: 'http://localhost:{{ beacon_node_metrics_port }}/health'
+        # FIXME: Disabled because of constantly flapping checks.
+        #checks:
+        #  - name: '{{ beacon_node_consul_metrics_service_name }}-health'
+        #    type: 'http'
+        #    http: 'http://localhost:{{ beacon_node_metrics_port }}/health'
