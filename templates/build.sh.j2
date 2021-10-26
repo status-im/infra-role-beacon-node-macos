@@ -36,7 +36,7 @@ function buildBinaries() {
     cd ..
 
     # Delete copies that are older than N days
-    find build -mtime +{{ beacon_node_build_days_kept }} -exec rm '{}' \+
+    find build -mtime +{{ beacon_node_build_days_kept }} -exec rm -r '{}' \+
 }
 
 #-------------------------------------------------------------------------------
