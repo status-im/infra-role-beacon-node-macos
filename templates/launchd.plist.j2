@@ -23,7 +23,7 @@
     <string>--web3-url={{ url | mandatory }}</string>
 {% endfor %}
 {% if beacon_node_repo_branch == "unstable" %}
-    <string>--log-stdout={{ beacon_node_log_format }}</string>
+    <string>--log-format={{ beacon_node_log_format }}</string>
 {% endif %}
     <string>--log-level={{ beacon_node_log_level }}</string>
     <string>--nat=extip:{{ beacon_node_public_address }}</string>
