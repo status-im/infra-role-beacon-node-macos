@@ -7,7 +7,7 @@ function headIsDetached() {
 }
 
 function binaryExists() {
-    ls -l build/{{ beacon_node_build_targets | first }}_${COMMIT} 2>&1 1>/dev/null
+    ls -l build/nimbus_beacon_node_${COMMIT} 2>&1 1>/dev/null
 }
 
 function fetchChanges() {
@@ -21,18 +21,15 @@ function buildBinaries() {
     NICE="nice -n 19"
 
     ${NICE} make -j6 update
-    ${NICE} make -j6 {{ beacon_node_build_targets | join(" ") }} \
+    ${NICE} make -j6 nimbus_beacon_node \
         LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler -d:disableMarchNative"
 
     # Rename binaries to match commit they were built from.
     cd build/
-{% for target in beacon_node_build_targets %}
-    mv {{ target }} {{ target }}_${COMMIT}
+    mv nimbus_beacon_node nimbus_beacon_node_${COMMIT}
 
     # Create a symbolic link to the latest version
-    ln -fs {{ target }}_${COMMIT} {{ target }}
-
-{% endfor %}
+    ln -fs nimbus_beacon_node_${COMMIT} nimbus_beacon_node
     cd ..
 
     # Delete copies that are older than N days
