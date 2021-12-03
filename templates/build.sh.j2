@@ -20,7 +20,7 @@ function buildBinaries() {
     # Lower CPU priority so it doesn't affect the running beacon node
     NICE="nice -n 19"
 
-    ${NICE} make -j6 update
+    ${NICE} make -j6 update OVERRIDE=1
     ${NICE} make -j6 nimbus_beacon_node \
         LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler -d:disableMarchNative"
 
