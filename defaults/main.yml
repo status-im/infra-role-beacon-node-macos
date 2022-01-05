@@ -30,6 +30,10 @@ beacon_node_build_log_path: '{{ beacon_node_log_folder }}/build.log'
 beacon_node_build_timeout: 3600
 beacon_node_build_start_time: '12:00:00' # Is divided by colon, seconds ignored.
 beacon_node_build_days_kept: 3
+beacon_node_build_log_level: 'TRACE'
+beacon_node_build_nim_flags: >-
+  -d:testnet_servers_image
+  -d:noSignalHandler
 
 beacon_node_repo_url: 'https://github.com/status-im/nimbus-eth2'
 beacon_node_repo_branch: 'stable'

@@ -22,7 +22,8 @@ function buildBinaries() {
 
     ${NICE} make -j6 update OVERRIDE=1
     ${NICE} make -j6 nimbus_beacon_node \
-        LOG_LEVEL="TRACE" NIMFLAGS="-d:testnet_servers_image -d:noSignalHandler -d:disableMarchNative"
+        LOG_LEVEL="{{ beacon_node_build_log_level }}" \
+        NIMFLAGS="{{ beacon_node_build_nim_flags }}"
 
     # Rename binaries to match commit they were built from.
     cd build/
