@@ -49,6 +49,12 @@
     <string>--metrics-address={{ beacon_node_metrics_address }}</string>
     <string>--metrics-port={{ beacon_node_metrics_port }}</string>
 {% endif %}
+{% if beacon_node_validator_monitor_auto %}
+    <string>--validator-monitor-auto</string>
+{% endif %}
+{% if beacon_node_validator_monitor_totals %}
+    <string>--validator-monitor-totals</string>
+{% endif %}
   </array>
 
   <key>UserName</key>
