@@ -55,6 +55,9 @@
 {% if beacon_node_validator_monitor_totals %}
     <string>--validator-monitor-totals</string>
 {% endif %}
+{% for pubkey in beacon_node_validator_monitor_pubkeys %}
+    <string>--validator-monitor-pubkey={{ pubkey }}</string>
+{% endfor %}
   </array>
 
   <key>UserName</key>
