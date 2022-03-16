@@ -59,6 +59,10 @@
 {% for pubkey in beacon_node_validator_monitor_pubkeys %}
     <string>--validator-monitor-pubkey={{ pubkey }}</string>
 {% endfor %}
+{% if beacon_node_light_client_data_enabled %}
+    <string>--serve-light-client-data={{ beacon_node_light_client_data_serve | to_json }}</string>
+    <string>--import-light-client-data={{ beacon_node_light_client_data_import }}</string>
+{% endif %}
   </array>
 
   <key>UserName</key>
