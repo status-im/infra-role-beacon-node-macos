@@ -43,7 +43,6 @@ beacon_node_log_level: 'INFO' # TRACE DEBUG INFO NOTICE WARN ERROR FATAL NONE
 beacon_node_log_format: 'json' # auto colors nocolors json none
 beacon_node_subscribe_all: false
 beacon_node_doppelganger_detection: true
-beacon_node_proposer_boosting_debug: false
 
 # Validator Monitoring
 beacon_node_validator_monitor_auto: false
@@ -67,8 +66,7 @@ beacon_node_metrics_enabled: true
 beacon_node_metrics_address: '0.0.0.0'
 beacon_node_metrics_port: 9200
 
-# The JSON-RPC service is disabled because this is a legacy
-# functionality that will be removed from Nimbus eventually
+# The JSON-RPC is deprecated and will be removed soon.
 beacon_node_rpc_enabled: false
 beacon_node_rpc_address: '127.0.0.1'
 beacon_node_rpc_port: 9900
