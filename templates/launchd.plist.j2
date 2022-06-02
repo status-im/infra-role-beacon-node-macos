@@ -62,6 +62,9 @@
     <string>--serve-light-client-data={{ beacon_node_light_client_data_serve | to_json }}</string>
     <string>--import-light-client-data={{ beacon_node_light_client_data_import }}</string>
 {% endif %}
+{% for extra_flag in beacon_node_extra_flags %}
+    <string>{{ extra_flag }}</string>
+{% endfor %}
   </array>
 
   <key>UserName</key>
