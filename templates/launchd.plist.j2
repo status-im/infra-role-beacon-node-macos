@@ -59,8 +59,8 @@
     <string>--validator-monitor-pubkey={{ pubkey }}</string>
 {% endfor %}
 {% if beacon_node_light_client_data_enabled %}
-    <string>--serve-light-client-data={{ beacon_node_light_client_data_serve | to_json }}</string>
-    <string>--import-light-client-data={{ beacon_node_light_client_data_import }}</string>
+    <string>--light-client-data-serve={{ beacon_node_light_client_data_serve | to_json }}</string>
+    <string>--light-client-data-import-mode={{ beacon_node_light_client_data_import_mode }}</string>
 {% endif %}
 {% for extra_flag in beacon_node_extra_flags %}
     <string>{{ extra_flag }}</string>
