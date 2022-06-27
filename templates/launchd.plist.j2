@@ -61,6 +61,9 @@
 {% if beacon_node_light_client_data_enabled %}
     <string>--light-client-data-serve={{ beacon_node_light_client_data_serve | to_json }}</string>
     <string>--light-client-data-import-mode={{ beacon_node_light_client_data_import_mode }}</string>
+{% if beacon_node_light_client_data_max_periods >= 0 %}
+    <string>--light-client-data-max-periods={{ beacon_node_light_client_data_max_periods }}</string>
+{% endif %}
 {% endif %}
 {% for extra_flag in beacon_node_extra_flags %}
     <string>{{ extra_flag }}</string>
