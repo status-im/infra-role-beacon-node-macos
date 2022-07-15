@@ -8,7 +8,6 @@ beacon_node_group: 'staff'
 
 beacon_node_user_path: '/Users/{{ beacon_node_user }}'
 beacon_node_data_path: '{{ beacon_node_service_path }}/data'
-beacon_node_data_folder: 'shared_{{ beacon_node_network }}_0'
 beacon_node_repo_path: '{{ beacon_node_service_path }}/repo'
 beacon_node_log_folder: '{{ beacon_node_service_path }}/logs'
 beacon_node_log_path: '{{ beacon_node_log_folder }}/service.log'
@@ -84,7 +83,7 @@ beacon_node_light_client_data_max_periods: -1 # -1 to use default
 # Automatically distribute validators
 beacon_node_dist_validators_enabled: false
 beacon_node_dist_validators_name: '{{ beacon_node_network }}_deposits'
-beacon_node_dist_validators_data_path: '{{ beacon_node_data_path }}/{{ beacon_node_data_folder }}'
+beacon_node_dist_validators_path: '{{ beacon_node_data_path }}'
 # beacon_node_dist_validators_start: ~
 # beacon_node_dist_validators_end: ~
 
@@ -100,7 +99,7 @@ beacon_node_web3_urls: ['wss://goerli.infura.io/ws/v3/6224f3c792cc443fafb64e70a9
 beacon_node_slashing_db_kind: 'v2'
 
 # Netkey file contents, optional.
-#beacon_node_netkey: '{"key":"json"}'
+# beacon_node_netkey: '{"key":"json"}'
 
 # Homebrew path prefix (differs on arm/intel)
 homebrew_path: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"

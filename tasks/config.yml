@@ -1,27 +1,34 @@
 ---
-- name: Create directories
+- name: Create service directory
   file:
-    path: '{{ item }}'
-    state: directory
+    path:  '{{ beacon_node_service_path }}'
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
-    mode: 0750
-  with_items:
-    - '{{ beacon_node_data_path }}'
+    state: directory
+    mode:  0750
+
+- name: Create data directory
+  file:
+    path:  '{{ beacon_node_data_path }}'
+    owner: '{{ beacon_node_user }}'
+    group: '{{ beacon_node_group }}'
+    state: directory
+    # WARNING: Node needs these permissions to start.
+    mode:  0700
 
 - name: Create netkey file (optional)
   copy:
-    dest: '{{ beacon_node_netkey_path }}'
+    dest:    '{{ beacon_node_netkey_path }}'
     content: '{{ beacon_node_netkey }}'
-    owner: '{{ beacon_node_user }}'
-    group: '{{ beacon_node_group }}'
-    mode: 0600
+    owner:   '{{ beacon_node_user }}'
+    group:   '{{ beacon_node_group }}'
+    mode:    0600
   when: beacon_node_netkey is defined
 
 - name: Create JSON RPC wrapper script
   template:
-    src: 'rpc.sh.j2'
-    dest: '{{ beacon_node_rpc_script_path }}'
+    src:   'rpc.sh.j2'
+    dest:  '{{ beacon_node_rpc_script_path }}'
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
-    mode: 0750
+    mode:  0750
