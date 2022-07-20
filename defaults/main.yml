@@ -13,8 +13,6 @@ beacon_node_log_folder: '{{ beacon_node_service_path }}/logs'
 beacon_node_log_path: '{{ beacon_node_log_folder }}/service.log'
 beacon_node_netkey_path: '{{ beacon_node_data_path }}/netkey'
 beacon_node_rpc_script_path: '{{ beacon_node_service_path }}/rpc.sh'
-beacon_node_validators_dir: "" # empty string means no override
-beacon_node_secrets_dir: "" # empty string means no override
 
 # launchd service
 beacon_node_launchd_service_name: 'status.{{ beacon_node_service_name }}'
