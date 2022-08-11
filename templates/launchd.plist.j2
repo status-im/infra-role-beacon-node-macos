@@ -16,6 +16,9 @@
 {% for url in beacon_node_web3_urls | mandatory %}
     <string>--web3-url={{ url | mandatory }}</string>
 {% endfor %}
+{% if beacon_node_web3_jwt_secret is defined %}
+    <string>--jwt-secret={{ beacon_node_web3_jwt_secret_path | mandatory }}</string>
+{% endif %}
     <string>--log-format={{ beacon_node_log_format }}</string>
     <string>--log-level={{ beacon_node_log_level }}</string>
     <string>--nat=extip:{{ beacon_node_public_address }}</string>

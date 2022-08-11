@@ -32,3 +32,10 @@
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
     mode:  0750
+
+- name: Create JWT secret file (optional)
+  when: beacon_node_web3_jwt_secret is defined
+  copy:
+    dest:    '{{ beacon_node_web3_jwt_secret_path }}'
+    content: '{{ beacon_node_web3_jwt_secret }}'
+    group:   '{{ beacon_node_group }}'
