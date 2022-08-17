@@ -46,6 +46,9 @@ beacon_node_validator_monitor_auto: false
 beacon_node_validator_monitor_totals: false
 beacon_node_validator_monitor_pubkeys: []
 
+# Suggests it to the Execution Layer client.
+#beacon_node_suggested_fee_recipient: ~
+
 # For validation
 beacon_node_valid_network_names: ["pyrmont", "prater", "mainnet", "steklo", "nocturne"]
 

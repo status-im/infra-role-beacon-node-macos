@@ -16,6 +16,9 @@
 {% for url in beacon_node_web3_urls | mandatory %}
     <string>--web3-url={{ url | mandatory }}</string>
 {% endfor %}
+{% if beacon_node_suggested_fee_recipient is defined %}
+    <string>--suggested-fee-recipient={{ beacon_node_suggested_fee_recipient | mandatory }}</string>
+{% endif %}
 {% if beacon_node_web3_jwt_secret is defined %}
     <string>--jwt-secret={{ beacon_node_web3_jwt_secret_path | mandatory }}</string>
 {% endif %}
