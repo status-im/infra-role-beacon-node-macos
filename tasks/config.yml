@@ -1,29 +1,24 @@
 ---
-- name: Create service directory
+- name: Create service directories
   file:
-    path:  '{{ beacon_node_service_path }}'
+    path:  '{{ item.path }}'
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
-    state: directory
-    mode:  0750
-
-- name: Create data directory
-  file:
-    path:  '{{ beacon_node_data_path }}'
-    owner: '{{ beacon_node_user }}'
-    group: '{{ beacon_node_group }}'
-    state: directory
-    # WARNING: Node needs these permissions to start.
-    mode:  0700
+    state: 'directory'
+    mode:  '{{ item.mode }}'
+  with_items:
+    - { path: '{{ beacon_node_service_path }}', mode: '0750' }
+    - { path: '{{ beacon_node_era_dir_path }}', mode: '0750' }
+    - { path: '{{ beacon_node_data_path }}',    mode: '0700' }
 
 - name: Create netkey file (optional)
+  when: beacon_node_netkey is defined
   copy:
     dest:    '{{ beacon_node_netkey_path }}'
     content: '{{ beacon_node_netkey }}'
     owner:   '{{ beacon_node_user }}'
     group:   '{{ beacon_node_group }}'
     mode:    0600
-  when: beacon_node_netkey is defined
 
 - name: Create JWT secret file (optional)
   when: beacon_node_web3_jwt_secret is defined

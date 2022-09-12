@@ -13,6 +13,7 @@
     <string>{{ beacon_node_repo_path }}/build/nimbus_beacon_node</string>
     <string>--network={{ beacon_node_network }}</string>
     <string>--data-dir={{ beacon_node_data_path }}</string>
+    <string>--era-dir={{ beacon_node_era_dir_path }}</string>
 {% for url in beacon_node_web3_urls | mandatory %}
     <string>--web3-url={{ url | mandatory }}</string>
 {% endfor %}

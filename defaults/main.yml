@@ -12,6 +12,7 @@ beacon_node_repo_path: '{{ beacon_node_service_path }}/repo'
 beacon_node_log_folder: '{{ beacon_node_service_path }}/logs'
 beacon_node_log_path: '{{ beacon_node_log_folder }}/service.log'
 beacon_node_netkey_path: '{{ beacon_node_data_path }}/netkey'
+beacon_node_era_dir_path: '{{ beacon_node_data_path }}/era'
 
 # launchd service
 beacon_node_launchd_service_name: 'status.{{ beacon_node_service_name }}'
