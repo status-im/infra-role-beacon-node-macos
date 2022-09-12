@@ -13,6 +13,8 @@ beacon_node_log_folder: '{{ beacon_node_service_path }}/logs'
 beacon_node_log_path: '{{ beacon_node_log_folder }}/service.log'
 beacon_node_netkey_path: '{{ beacon_node_data_path }}/netkey'
 beacon_node_era_dir_path: '{{ beacon_node_data_path }}/era'
+beacon_node_secrets_path: '{{ beacon_node_data_path }}/secrets'
+beacon_node_validators_path: '{{ beacon_node_data_path }}/validators'
 
 # launchd service
 beacon_node_launchd_service_name: 'status.{{ beacon_node_service_name }}'
@@ -84,7 +86,8 @@ beacon_node_light_client_data_max_periods: -1 # -1 to use default
 # Automatically distribute validators
 beacon_node_dist_validators_enabled: false
 beacon_node_dist_validators_name: '{{ beacon_node_network }}_deposits'
-beacon_node_dist_validators_path: '{{ beacon_node_data_path }}'
+beacon_node_dist_validators_sec_path: '{{ beacon_node_secrets_path }}'
+beacon_node_dist_validators_val_path: '{{ beacon_node_validators_path }}'
 # beacon_node_dist_validators_start: ~
 # beacon_node_dist_validators_end: ~
 
