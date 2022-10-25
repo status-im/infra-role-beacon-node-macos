@@ -37,11 +37,6 @@
     <string>--insecure-netkey-password=true</string>
     <string>--subscribe-all-subnets={{ beacon_node_subscribe_all | to_json }}</string>
     <string>--doppelganger-detection={{ beacon_node_doppelganger_detection | to_json }}</string>
-    <string>--rpc={{ beacon_node_rpc_enabled | to_json }}</string>
-{% if beacon_node_rpc_enabled %}
-    <string>--rpc-address={{ beacon_node_rpc_address }}</string>
-    <string>--rpc-port={{ beacon_node_rpc_port }}</string>
-{% endif %}
     <string>--rest={{ beacon_node_rest_enabled | to_json }}</string>
 {% if beacon_node_rest_enabled %}
     <string>--rest-address={{ beacon_node_rest_address }}</string>
