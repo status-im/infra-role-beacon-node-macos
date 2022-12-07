@@ -21,7 +21,7 @@ function buildBinaries() {
     NICE="nice -n 19"
 
     ${NICE} make -j6 update OVERRIDE=1
-    ${NICE} make -j6 nimbus_beacon_node \
+    ${NICE} make -j6 nimbus_beacon_node ncli_db \
         LOG_LEVEL="{{ beacon_node_build_log_level }}" \
         NIMFLAGS="{{ beacon_node_build_nim_flags }}"
 
