@@ -28,3 +28,13 @@
     dest:    '{{ beacon_node_web3_jwt_secret_path }}'
     content: '{{ beacon_node_web3_jwt_secret }}'
     group:   '{{ beacon_node_group }}'
+
+- name: Create helper scripts
+  template:
+    src:     '{{ item }}'
+    dest:    '{{ beacon_node_service_path }}/{{ item|basename|replace(".j2", "") }}'
+    owner:   '{{ beacon_node_user }}'
+    group:   '{{ beacon_node_group }}'
+    mode:    0775
+  with_fileglob:
+    - 'templates/scripts/*'
