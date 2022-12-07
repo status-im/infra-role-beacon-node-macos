@@ -10,11 +10,11 @@
 
 - name: Create build script
   template:
-    src: build.sh.j2
-    dest: '{{ beacon_node_build_script_path }}'
+    src:   'scipts/build.sh.j2'
+    dest:  '{{ beacon_node_build_script_path }}'
     owner: '{{ beacon_node_user }}'
     group: '{{ beacon_node_group }}'
-    mode: 0775
+    mode:  0775
 
 - name: Create launchd config file for scheduled builds
   template:
