@@ -78,6 +78,16 @@ beacon_node_light_client_data_serve: true
 beacon_node_light_client_data_import_mode: 'only-new'
 beacon_node_light_client_data_max_periods: -1 # -1 to use default
 
+# Periodic forced node resync.
+beacon_node_resync_enabled: false
+beacon_node_resync_timer_enabled: true
+beacon_node_resync_timer_service_name: 'status.resync-{{ beacon_node_service_name }}'
+beacon_node_resync_timer_user: 'root' # Needed too start service back up.
+beacon_node_resync_timer_group: '{{ beacon_node_group }}'
+beacon_node_resync_timer_timeout: 43200
+beacon_node_resync_timer_frequency: 604800 # weekly
+#beacon_node_resync_timer_trusted_api_url: ~
+
 # Automatically distribute validators
 beacon_node_dist_validators_enabled: false
 beacon_node_dist_validators_name: '{{ beacon_node_network }}_deposits'

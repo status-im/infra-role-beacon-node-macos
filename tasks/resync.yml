@@ -1,0 +1,20 @@
+---
+- name: Create timer for resyncing node
+  include_role: name=launchd-timer
+  vars:
+    launchd_timer_description:      'Resync {{ beacon_node_service_name }}'
+    launchd_timer_name:             '{{ beacon_node_resync_timer_service_name }}'
+    launchd_timer_enabled:          '{{ beacon_node_resync_timer_enabled }}'
+    launchd_timer_user:             '{{ beacon_node_resync_timer_user }}'
+    launchd_timer_group:            '{{ beacon_node_resync_timer_group }}'
+    launchd_timer_frequency:        '{{ beacon_node_resync_timer_frequency }}'
+    launchd_timer_timeout_sec:      '{{ beacon_node_resync_timer_timeout }}'
+    launchd_timer_work_dir:         '{{ beacon_node_service_path }}'
+    launchd_timer_start_on_creation: false
+    launchd_timer_script_content: |
+      #!/usr/bin/env bash
+      set -e
+      launchctl unload {{ beacon_node_service_name }}
+      rm -r {{ beacon_node_data_path }}/db
+      {{ beacon_node_service_path }}/sync.sh '{{ beacon_node_resync_timer_trusted_api_url | mandatory }}'
+      launchctl load {{ beacon_node_service_name }}

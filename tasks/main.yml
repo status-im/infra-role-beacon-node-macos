@@ -5,6 +5,8 @@
 - include_tasks: build.yml
 - include_tasks: logrotate.yml
 - include_tasks: service.yml
+- include_tasks: resync.yml
+  when: beacon_node_resync_enabled
 - import_tasks: validators.yml
   when: beacon_node_dist_validators_enabled
 - include_tasks: firewall.yml

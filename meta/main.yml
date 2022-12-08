@@ -21,3 +21,6 @@ galaxy_info:
     - name: infra-role-dist-validators
       src: git+git@github.com:status-im/infra-role-dist-validators.git
       scm: git
+    - name: launchd-timer
+      src: git+git@github.com:status-im/infra-role-launchd-timer.git
+      scm: git
