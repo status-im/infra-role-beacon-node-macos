@@ -16,6 +16,7 @@
     <string>--secrets-dir={{ beacon_node_secrets_path }}</string>
     <string>--validators-dir={{ beacon_node_validators_path }}</string>
     <string>--era-dir={{ beacon_node_era_dir_path }}</string>
+    <string>--history={{ beacon_node_history_retention }}</string>
 {% for url in beacon_node_web3_urls | mandatory %}
     <string>--web3-url={{ url | mandatory }}</string>
 {% endfor %}
