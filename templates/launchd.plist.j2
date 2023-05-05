@@ -17,9 +17,13 @@
     <string>--validators-dir={{ beacon_node_validators_path }}</string>
     <string>--era-dir={{ beacon_node_era_dir_path }}</string>
     <string>--history={{ beacon_node_history_retention }}</string>
+{% if beacon_node_exec_layer_urls|length == 0 %}
+    <string>--no-el=true</string>
+{% else %}
 {% for url in beacon_node_exec_layer_urls | mandatory %}
     <string>--el={{ url | mandatory }}</string>
 {% endfor %}
+{% endif %}
 {% if beacon_node_exec_layer_jwt_secret is defined %}
     <string>--jwt-secret={{ beacon_node_exec_layer_jwt_secret_path | mandatory }}</string>
 {% endif %}
