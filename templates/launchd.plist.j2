@@ -60,8 +60,8 @@
 {% if beacon_node_validator_monitor_auto %}
     <string>--validator-monitor-auto</string>
 {% endif %}
-{% if beacon_node_validator_monitor_totals %}
-    <string>--validator-monitor-totals</string>
+{% if beacon_node_validator_monitor_details %}
+    <string>--validator-monitor-details</string>
 {% endif %}
 {% for pubkey in beacon_node_validator_monitor_pubkeys %}
     <string>--validator-monitor-pubkey={{ pubkey }}</string>
