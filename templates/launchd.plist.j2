@@ -57,12 +57,8 @@
     <string>--metrics-address={{ beacon_node_metrics_address }}</string>
     <string>--metrics-port={{ beacon_node_metrics_port }}</string>
 {% endif %}
-{% if beacon_node_validator_monitor_auto %}
-    <string>--validator-monitor-auto</string>
-{% endif %}
-{% if beacon_node_validator_monitor_details %}
-    <string>--validator-monitor-details</string>
-{% endif %}
+    <string>--validator-monitor-auto={{ beacon_node_validator_monitor_auto | to_json }}</string>
+    <string>--validator-monitor-details={{ beacon_node_validator_monitor_details | to_json }}</string>
 {% for pubkey in beacon_node_validator_monitor_pubkeys %}
     <string>--validator-monitor-pubkey={{ pubkey }}</string>
 {% endfor %}
