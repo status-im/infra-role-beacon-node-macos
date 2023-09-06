@@ -8,6 +8,12 @@
   <key>WorkingDirectory</key>
   <string>{{ beacon_node_service_path }}</string>
 
+  <key>SoftResourceLimits</key>
+  <dict>
+    <key>NumberOfFiles</key>
+    <integer>{{ beacon_node_launchd_max_open_files }}</integer>
+  </dict>
+
   <key>ProgramArguments</key>
   <array>
     <string>{{ beacon_node_repo_path }}/build/nimbus_beacon_node</string>

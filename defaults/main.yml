@@ -20,6 +20,7 @@ beacon_node_validators_path: '{{ beacon_node_data_path }}/validators'
 beacon_node_launchd_service_name: 'status.{{ beacon_node_service_name }}'
 beacon_node_launchd_config_folder: '/Library/LaunchDaemons'
 beacon_node_launchd_config_path: '{{ beacon_node_launchd_config_folder }}/{{ beacon_node_launchd_service_name }}.plist'
+beacon_node_launchd_max_open_files: 16384
 
 # Builds
 beacon_node_build_script_path: '{{ beacon_node_service_path }}/build.sh'
