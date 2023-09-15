@@ -54,7 +54,7 @@ beacon_node_validator_monitor_pubkeys: []
 #beacon_node_suggested_fee_recipient: ~
 
 # For validation
-beacon_node_valid_network_names: ["pyrmont", "prater", "mainnet", "steklo", "nocturne"]
+beacon_node_valid_network_names: ["mainnet", "prater", "sepolia", "holesky"]
 
 # Connectivity settings
 beacon_node_public_address: '{{ ansible_host }}'
