@@ -111,9 +111,6 @@ beacon_node_exec_layer_urls: []
 #beacon_node_exec_layer_jwt_secret: ~
 beacon_node_exec_layer_jwt_secret_path: '{{ beacon_node_service_path }}/jwt.hex'
 
-# Version of schema for SQLite slashing database.
-beacon_node_slashing_db_kind: 'v2'
-
 # Netkey file contents, optional.
 # beacon_node_netkey: '{"key":"json"}'
 
