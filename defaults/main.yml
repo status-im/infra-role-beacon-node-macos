@@ -125,7 +125,7 @@ beacon_node_logrotate_service_name: 'homebrew.mxcl.logrotate'
 beacon_node_logrotate_service_interval_sec: 3600 # 1 hour
 beacon_node_logrotate_main_config: '{{ homebrew_path }}/etc/logrotate.conf'
 beacon_node_logrotate_config_path: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
-beacon_node_logrotate_max_kept: 72
+beacon_node_logrotate_max_kept: 20
 beacon_node_logrotate_max_size: '500M'
 
 # Homebrew path prefix (differs on arm/intel)
