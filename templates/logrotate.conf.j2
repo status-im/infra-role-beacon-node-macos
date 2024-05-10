@@ -1,7 +1,7 @@
 {{ beacon_node_log_path }}
 {
-    rotate 72
-    maxsize 500M
+    rotate {{ beacon_node_logrotate_max_kept }}
+    maxsize {{ beacon_node_logrotate_max_size }}
     hourly
     missingok
     notifempty

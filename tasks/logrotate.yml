@@ -9,7 +9,7 @@
 - name: Create launchd config for logrotate
   template:
     src: launchd-logrotate.plist.j2
-    dest: '/Library/LaunchDaemons/homebrew.mxcl.logrotate.plist'
+    dest: '/Library/LaunchDaemons/{{ beacon_node_logrotate_service_name }}.plist'
     owner: root
     mode: 0644
 
@@ -24,17 +24,17 @@
 - name: Create logrotate config for beacon node
   template:
     src: logrotate.conf.j2
-    dest: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
+    dest: '{{ beacon_node_logrotate_config_path }}'
     owner: root
     mode: 0644
 
 # logrotate will fail to start if configs are not owned by root
 - name: Make sure logrotate.conf is owned by root
   file:
-    path: '{{ homebrew_path }}/etc/logrotate.conf'
+    path: '{{ beacon_node_logrotate_main_config }}'
     owner: root
 
 - name: Reload launchd config
   community.general.launchd:
-    name: homebrew.mxcl.logrotate
+    name: '{{ beacon_node_logrotate_service_name }}'
     state: reloaded

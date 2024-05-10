@@ -7,11 +7,11 @@
   <key>ProgramArguments</key>
   <array>
 	  <string>{{ homebrew_path }}/opt/logrotate/sbin/logrotate</string>
-	  <string>{{ homebrew_path }}/etc/logrotate.conf</string>
+	  <string>{{ beacon_node_logrotate_main_config }}</string>
   </array>
   <key>RunAtLoad</key>
   <false/>
   <key>StartInterval</key>
-  <integer>3600</integer>
+  <integer>{{ beacon_node_logrotate_service_interval_sec }}</integer>
 </dict>
 </plist>

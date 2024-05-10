@@ -120,5 +120,13 @@ beacon_node_exec_layer_jwt_secret_path: '{{ beacon_node_service_path }}/jwt.hex'
 # Netkey file contents, optional.
 # beacon_node_netkey: '{"key":"json"}'
 
+# Logs rotation
+beacon_node_logrotate_service_name: 'homebrew.mxcl.logrotate'
+beacon_node_logrotate_service_interval_sec: 3600 # 1 hour
+beacon_node_logrotate_main_config: '{{ homebrew_path }}/etc/logrotate.conf'
+beacon_node_logrotate_config_path: '{{ homebrew_path }}/etc/logrotate.d/{{ beacon_node_service_name }}.conf'
+beacon_node_logrotate_max_kept: 72
+beacon_node_logrotate_max_size: '500M'
+
 # Homebrew path prefix (differs on arm/intel)
 homebrew_path: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
