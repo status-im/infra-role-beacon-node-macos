@@ -45,6 +45,8 @@ beacon_node_exec_layer_urls:
 ```
 The order of WebSocket URLs matters. First is the default, the rest are fallbacks.
 
+Most non-sensitive configuration resides in `conf/config.toml` file in service directory.
+
 # Management
 
 ## Directories

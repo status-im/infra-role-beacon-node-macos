@@ -11,9 +11,14 @@
   template:
     src: launchd.plist.j2
     dest: '{{ beacon_node_launchd_config_path }}'
-  register: beacon_node_config_result
+  register: beacon_node_service_definition
 
 - name: Restart beacon node
   community.general.launchd:
     name: '{{ beacon_node_launchd_service_name }}'
-    state: '{{ beacon_node_config_result.changed | ternary("restarted", "started") }}'
+    state: |-
+      {{ (
+        beacon_node_config_file.changed or
+        beacon_node_service_definition.changed or
+        beacon_node_service_restart
+      ) | ternary("restarted", "started") }}
