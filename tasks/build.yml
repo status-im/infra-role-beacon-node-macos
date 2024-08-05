@@ -1,4 +1,11 @@
 ---
+- name: Install Clang compiler
+  homebrew:
+    name: 'llvm@18'
+    state: 'linked'
+    upgrade: false
+  become_user: 'admin'
+
 - name: Clone repo
   git:
     repo: '{{ beacon_node_repo_url }}'

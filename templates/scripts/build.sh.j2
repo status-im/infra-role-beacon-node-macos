@@ -51,8 +51,8 @@ if [[ "${USER}" != "{{ beacon_node_user }}" ]]; then
     exit 1
 fi
 
-# Source profile to set correct PATH (to find homebrew binaries such as cmake)
-source /etc/profile
+# Set correct PATH to find Homebrew binaries such as cmake.
+eval "$({{ homebrew_path }}/bin/brew shellenv)"
 
 # Build the Beacon node binaries
 pushd repo >/dev/null
