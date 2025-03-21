@@ -15,6 +15,6 @@
       #!/usr/bin/env bash
       set -e
       launchctl unload {{ beacon_node_service_name }}
-      rm -r {{ beacon_node_data_path }}/db
+      rm -fr {{ beacon_node_data_path }}/db
       {{ beacon_node_service_path }}/sync.sh '{{ beacon_node_resync_timer_trusted_api_url | mandatory }}'
       launchctl load {{ beacon_node_service_name }}
