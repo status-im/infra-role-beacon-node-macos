@@ -1,13 +1,32 @@
 ---
 - include_tasks: checks.yml
+  tags: ['beacon-node', 'beacon-node:checks']
+
 - include_tasks: user.yml
+  tags: ['beacon-node', 'beacon-node:user']
+
 - include_tasks: config.yml
+  tags: ['beacon-node', 'beacon-node:config']
+
 - include_tasks: build.yml
+  tags: ['beacon-node', 'beacon-node:build']
+
 - include_tasks: logrotate.yml
+  tags: ['beacon-node', 'beacon-node:logrotate']
+
 - include_tasks: service.yml
+  tags: ['beacon-node', 'beacon-node:service']
+
 - include_tasks: resync.yml
+  tags: ['beacon-node', 'beacon-node:resync']
   when: beacon_node_resync_enabled
+
 - import_tasks: validators.yml
+  tags: ['beacon-node', 'beacon-node:checks']
   when: beacon_node_dist_validators_enabled
+
 - include_tasks: firewall.yml
+  tags: ['beacon-node', 'beacon-node:firewall']
+
 - include_tasks: consul.yml
+  tags: ['beacon-node', 'beacon-node:consul']
