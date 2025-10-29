@@ -31,6 +31,7 @@ beacon_node_launchd_max_open_files: 16384
 beacon_node_build_script_path: '{{ beacon_node_service_path }}/build.sh'
 beacon_node_build_launchd_service_name: 'status.build-{{ beacon_node_service_name }}'
 beacon_node_build_launchd_path: '/Library/LaunchDaemons/{{ beacon_node_build_launchd_service_name }}.plist'
+beacon_node_build_jobs: '{{ ansible_processor_vcpus * 0.25 | round(0, "ceil") | int }}'
 beacon_node_build_log_path: '{{ beacon_node_log_folder }}/build.log'
 beacon_node_build_timeout: 3600
 beacon_node_build_start_time: '12:00:00' # Is divided by colon, seconds ignored.
