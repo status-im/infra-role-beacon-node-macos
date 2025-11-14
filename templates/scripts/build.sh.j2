@@ -7,7 +7,11 @@ function headIsDetached() {
 }
 
 function binaryExists() {
-    ls -l build/nimbus_beacon_node_${COMMIT} 2>&1 1>/dev/null
+    ls -l \
+{% for target in beacon_node_build_targets %}
+        build/{{ target }}_${COMMIT} 2>&1 1>/dev/null
+{% endfor %}
+        2>&1 1>/dev/null
 }
 
 function fetchChanges() {
@@ -20,28 +24,31 @@ function buildBinaries() {
     # Control number of jobs used to lower impact on running nodes
     export MAKEFLAGS="-j{{ beacon_node_build_jobs | int }}"
     # Lower CPU priority so it doesn't affect the running beacon node
-    NICE="nice -n 19"
+    export NICE="nice -n 19"
 
     ${NICE} make update OVERRIDE=1
-    ${NICE} make nimbus_beacon_node ncli_db \
+    ${NICE} make {{ beacon_node_build_targets | join(" ") }} \
         LOG_LEVEL="{{ beacon_node_build_log_level }}" \
         NIMFLAGS="{{ beacon_node_build_nim_flags }}"
 
-    # Rename binaries to match commit they were built from.
     cd build/
-    mv nimbus_beacon_node nimbus_beacon_node_${COMMIT}
 
+{% for target in beacon_node_build_targets %}
+    # Rename binaries to match commit they were built from.
+    mv "build/{{ target }}" "build/{{ target }}_${COMMIT}"
     # Create a symbolic link to the latest version
-    ln -fs nimbus_beacon_node_${COMMIT} nimbus_beacon_node
-    cd ..
+    ln -vfrs "{{ target }}_${COMMIT}" "${INSTALL_PATH}/{{ target }}"
 
+{% endfor %}
     # Delete copies that are older than N days
-    find build -mtime +{{ beacon_node_build_days_kept }} -exec rm -r '{}' \+
+    find . -mtime +{{ beacon_node_build_days_kept }} -exec rm -r '{}' \+
 }
 
 #-------------------------------------------------------------------------------
 
 BRANCH="{{ beacon_node_repo_branch }}"
+INSTALL_PATH="{{ beacon_node_bin_path }}"
+SERVICE_NAME="{{ beacon_node_launchd_service_name }}.plist"
 SERVICE_PATH="{{ beacon_node_service_path }}"
 
 echo " >>> Build Start: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
@@ -78,8 +85,8 @@ else
     # restart service
     echo " >>> Restarting service"
     cd {{ beacon_node_launchd_config_folder }}
-    sudo launchctl unload {{ beacon_node_launchd_service_name }}.plist
-    sudo launchctl load {{ beacon_node_launchd_service_name }}.plist
+    sudo launchctl unload "${SERVICE_NAME}"
+    sudo launchctl load   "${SERVICE_NAME}"
 fi
 
 popd >/dev/null
