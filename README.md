@@ -123,5 +123,5 @@ rm status.build-beacon-node-mainnet-unstable.plist
 rm -rf ~/beacon-node-mainnet-unstable
 
 # delete logrotate config
-rm /opt/homebrew/etc/logrotate.d/beacon-node-mainnet-unstable.conf
+rm /etc/logrotate.d/beacon-node-mainnet-unstable.conf
 ```

@@ -3,10 +3,12 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>homebrew.mxcl.logrotate</string>
+  <string>{{ beacon_node_logrotate_service_name }}</string>
   <key>ProgramArguments</key>
   <array>
-	  <string>{{ homebrew_path }}/opt/logrotate/sbin/logrotate</string>
+	  <string>/run/current-system/sw/bin/logrotate</string>
+    <string>--state</string>
+    <string>/var/lib/logrotate/logrotate.status</string>
 	  <string>{{ beacon_node_logrotate_main_config }}</string>
   </array>
   <key>RunAtLoad</key>

@@ -1,25 +1,32 @@
 ---
-- name: Install logrotate
-  homebrew:
-    name: logrotate
-  become: false
+- name: Install logrotate via nix profile
+  command: nix profile install nixpkgs#logrotate
+  register: nix_install
+  changed_when: "'installing' in nix_install.stderr"
+  failed_when: nix_install.rc != 0 and 'already installed' not in nix_install.stderr
 
-# the homebrew package comes with a default launchd config that runs daily
-# we overwrite it with one that runs hourly
-- name: Create launchd config for logrotate
-  template:
-    src: launchd-logrotate.plist.j2
-    dest: '/Library/LaunchDaemons/{{ beacon_node_logrotate_service_name }}.plist'
-    owner: root
-    mode: 0644
+- name: Get logrotate binary path
+  command: which logrotate
+  register: logrotate_which
+  changed_when: false
 
-# logrotate needs to write its state file to /opt/homebrew/var/lib
-# homebrew doesn't create this directory automatically
-- name: Create logrotate state file directory
+- name: Create logrotate directories
   file:
-    path: '{{ homebrew_path }}/var/lib'
+    path: '{{ item }}'
     state: directory
-  become: false
+    owner: root
+    mode: '0755'
+  with_items:
+    - '/var/lib/logrotate'
+    - '/etc/logrotate.d/'
+
+- name: Create main logrotate config
+  copy:
+    content: |
+      include /etc/logrotate.d
+    dest: '/etc/logrotate.conf'
+    owner: root
+    mode: '0644'
 
 - name: Create logrotate config for beacon node
   template:
@@ -33,6 +40,13 @@
   file:
     path: '{{ beacon_node_logrotate_main_config }}'
     owner: root
+
+- name: Create launchd config for logrotate
+  template:
+    src: launchd-logrotate.plist.j2
+    dest: '/Library/LaunchDaemons/{{ beacon_node_logrotate_service_name }}.plist'
+    owner: root
+    mode: '0644'
 
 - name: Reload launchd config
   community.general.launchd:
