@@ -7,8 +7,12 @@
 
 - name: Get logrotate binary path
   command: which logrotate
-  register: logrotate_which
+  register: logrotate_raw
   changed_when: false
+
+- name: Save clean binary path
+  set_fact:
+    beacon_node_logrotate_bin_path: "{{ logrotate_raw.stdout }}"
 
 - name: Create logrotate directories
   file:

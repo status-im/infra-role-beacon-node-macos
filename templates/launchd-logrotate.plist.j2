@@ -6,7 +6,7 @@
   <string>{{ beacon_node_logrotate_service_name }}</string>
   <key>ProgramArguments</key>
   <array>
-	  <string>/run/current-system/sw/bin/logrotate</string>
+	  <string>{{ beacon_node_logrotate_bin_path }}</string>
     <string>--state</string>
     <string>/var/lib/logrotate/logrotate.status</string>
 	  <string>{{ beacon_node_logrotate_main_config }}</string>
