@@ -13,8 +13,10 @@
     launchd_timer_start_on_creation: false
     launchd_timer_script_content: |
       #!/usr/bin/env bash
-      set -e
-      launchctl unload {{ beacon_node_service_name }}
+      set -xeuo pipefail
+      echo "Starting purge and checkpoint sync of '{{ beacon_node_build_launchd_service_name }}' node..."
+      launchctl bootout system {{ beacon_node_launchd_config_path }} || echo "Already stopped"
       rm -fr {{ beacon_node_data_path }}/db
       {{ beacon_node_service_path }}/sync.sh '{{ beacon_node_resync_timer_trusted_api_url | mandatory }}'
-      launchctl load {{ beacon_node_service_name }}
+      launchctl bootstrap system {{ beacon_node_launchd_config_path }}
+      sudo launchctl kickstart -kp system/{{ beacon_node_build_launchd_service_name }}
