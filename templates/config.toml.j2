@@ -100,7 +100,7 @@ light-client-data-max-periods = {{ beacon_node_light_client_data_max_periods }}
 {% if beacon_node_extra_flags %}
 
 ### Extra Flags
-{% for key,value in beacon_node_extra_flags %}
+{% for key,value in beacon_node_extra_flags.items() %}
 {# Ansible fails to handle integers correctly and formats them as strings. #}
 {% if value is string and (value is match("^-?[0-9]+$")) %}
 {{ key }} = {{ value | int | to_json }}

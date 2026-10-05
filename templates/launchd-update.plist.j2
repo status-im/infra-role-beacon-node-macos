@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>{{ beacon_node_build_launchd_service_name }}</string>
+  <string>{{ beacon_node_update_launchd_service_name }}</string>
 
   <key>WorkingDirectory</key>
   <string>{{ beacon_node_service_path }}</string>
 
   <key>ProgramArguments</key>
   <array>
-    <string>{{ beacon_node_build_script_path }}</string>
+    <string>{{ beacon_node_update_script_path }}</string>
   </array>
 
   <key>UserName</key>
@@ -22,18 +22,18 @@
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>{{ beacon_node_build_start_time.split(':')[0] }}</integer>
+    <integer>{{ beacon_node_update_start_time.split(':')[0] }}</integer>
     <key>Minute</key>
-    <integer>{{ beacon_node_build_start_time.split(':')[1] }}</integer>
+    <integer>{{ beacon_node_update_start_time.split(':')[1] }}</integer>
   </dict>
 
   <key>TimeOut</key>
-  <integer>{{ beacon_node_build_timeout }}</integer>
+  <integer>{{ beacon_node_update_timeout }}</integer>
 
   <key>StandardErrorPath</key>
-  <string>{{ beacon_node_build_log_path }}</string>
+  <string>{{ beacon_node_update_log_path }}</string>
 
   <key>StandardOutPath</key>
-  <string>{{ beacon_node_build_log_path }}</string>
+  <string>{{ beacon_node_update_log_path }}</string>
 </dict>
 </plist>

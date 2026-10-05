@@ -8,8 +8,8 @@
 - include_tasks: config.yml
   tags: ['beacon-node', 'beacon-node:config']
 
-- include_tasks: build.yml
-  tags: ['beacon-node', 'beacon-node:build']
+- include_tasks: update.yml
+  tags: ['beacon-node', 'beacon-node:update']
 
 - include_tasks: logrotate.yml
   tags: ['beacon-node', 'beacon-node:logrotate']

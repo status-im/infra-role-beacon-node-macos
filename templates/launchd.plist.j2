@@ -16,7 +16,7 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>{{ beacon_node_repo_path }}/build/nimbus_beacon_node</string>
+    <string>{{ beacon_node_bin_path }}/nimbus_beacon_node</string>
     <string>--config-file={{ beacon_node_config_path }}</string>
 {% if beacon_node_exec_layer_jwt_secret is defined %}
     <string>--jwt-secret={{ beacon_node_exec_layer_jwt_secret_path | mandatory }}</string>

@@ -1,0 +1,24 @@
+---
+- name: Create launchd config file for scheduled builds
+  template:
+    src: 'launchd-update.plist.j2'
+    dest: '{{ beacon_node_update_launchd_path }}'
+
+- name: Load launchd config into system
+  community.general.launchd:
+    name: '{{ beacon_node_update_launchd_service_name }}'
+    state: 'reloaded'
+
+- name: Check if node binary exists
+  stat:
+    path: '{{ beacon_node_bin_path }}/nimbus_beacon_node'
+
+- name: Start new node binary build
+  community.general.launchd:
+    name: '{{ beacon_node_update_launchd_service_name }}'
+    state: 'started'
+
+- name: Wait for build to finish (SLOW)
+  wait_for:
+    path: '{{ beacon_node_bin_path }}/nimbus_beacon_node'
+    timeout: '1200' # 20min
