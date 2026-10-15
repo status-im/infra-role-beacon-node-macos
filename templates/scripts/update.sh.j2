@@ -2,6 +2,8 @@
 # vim: ft=sh
 set -euo pipefail
 
+log() { printf '%s %s\n' "$(date '+%Y-%m-%dT%H:%M:%S%z')" "$*"; }
+
 SERVICE_NAME='{{ beacon_node_launchd_service_name | mandatory }}'
 RESULT_PATH='{{ beacon_node_result_path | mandatory }}'
 FLAKE_URL='{{ beacon_node_repo_url | mandatory }}'
@@ -10,11 +12,19 @@ FLAKE_BRANCH='{{ beacon_node_repo_branch | mandatory }}'
 
 RESULT_BEFORE=$(readlink "${RESULT_PATH}" || echo "missing")
 
-/nix/var/nix/profiles/default/bin/nix build --no-write-lock-file \
-    --refresh "git+${FLAKE_URL}?submodules=1&ref=${FLAKE_BRANCH}#${FLAKE_TARGET}"
+log "Building '${FLAKE_BRANCH}' branch:"
+set -x
+/nix/var/nix/profiles/default/bin/nix build \
+    --no-write-lock-file --accept-flake-config --refresh \
+    "git+${FLAKE_URL}?submodules=1&ref=${FLAKE_BRANCH}#${FLAKE_TARGET}"
+
+{ set +x; } 2>/dev/null
 
 RESULT_AFTER=$(readlink "${RESULT_PATH}")
 
 if [[ "${RESULT_BEFORE}" != "${RESULT_AFTER}" ]]; then
+    log "Restarting service: system/${SERVICE_NAME}"
     /bin/launchctl kickstart -kp "system/${SERVICE_NAME}"
+else
+    log "No changes detected."
 fi
